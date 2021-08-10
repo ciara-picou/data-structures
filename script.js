@@ -629,4 +629,199 @@
 // backspaceCompare("ab#c", "ad#c"); //ac=ac true
 // backspaceCompare("ab##", "c#d#"); //""="" true
 // backspaceCompare("ab##", "cdd#"); //""!="cd" false
+//LINKED LISTS
+//https://leetcode.com/problems/palindrome-linked-list/
+//zetinator's solution 
+// var isPalindrome = function (head) {
+//     if (head == null) return head;
+//     // fill the stack
+//     let node = head;
+//     let stack = [];
+//     while (node) {
+//       stack.push(node.val);
+//       node = node.next;
+//     }
+//     // play backwards
+//     console.log(stack);
+//     for (let i = 0; i < stack.length/2; i++) {
+//       console.log(i, stack.length - 1 - i);
+//       if (stack[i] != stack[stack.length - 1 - i]) return false;
+//     }
+//     return true;
+//   };
+//https://binarysearch.com/problems/Insert-Into-Linked-List
+// class Solution {
+//     solve(head, pos, val) {
+//         console.log(head, "<=head",pos, "<=pos", val, "<=val")
+//        //create a node with a val of parameter "val"
+//       let node2Insert =  new LLNode(val)
+//       //handle edge case when we are adding the node to the beginning of the list
+//       if(pos==0){
+//           node2Insert.next= head;
+//           head = node2Insert;
+//       }else{
+//        //we need a pointer to start at the head and stop at the correct position (the node before pos)
+//        let pointer = head
+//        for(let i = 0; i < pos - 1; i++){
+//            pointer = pointer.next
+//        }
+//        console.log(pointer.val)
+//        //we need to set our new node's next to our pointer's next
+//        node2Insert.next = pointer.next
+      
+//        //set our pointer's next to the new node
+//         pointer.next = node2Insert
+//       }
+//         return head
+//     }
+// }
+//https://leetcode.com/problems/delete-node-in-a-linked-list/
+// var deleteNode = function(node){
+//     node.val = node.next.val;
+//     node.next = node.next.next
+// };
+// https://www.hackerrank.com/challenges/compare-two-linked-lists/problem
+// function CompareLists(llist1, llist2) {
+//     while(llist1 && llist2){
+//         if(llist1.data !== llist2.data){
+//             return 0
+//             }
+//         llist1 = llist1.next
+//         llist2 = llist2.next
+//     }
+//     ​
+//     if(llist1 || llist2){
+//         return 0
+//     }
+//     return 1
+//     }
+//https://binarysearch.com/problems/A-Strictly-Increasing-Linked-List
+// class Solution {
+//     solve(head) {
+//         let prev = head
+//         let current = head.next
+       
+       
+//         while(current){
+//             if(prev.val >= current.val){
+//                 return false
+//             }
+//             prev = prev.next
+//             current = current.next
+//         }
+//         return true
+//     }
+// }
+//https://leetcode.com/problems/reverse-linked-list/submissions/
+// var reverseList = function(head) {//12345
+//     let prev = null
+//     let current = head //12345 
+//     while (current) {//12345 2345 345 45 5 null => the loop breaks
+//      next = current.next; //2345 345 45 5 null
+//      current.next = prev;//null 1 21 321 4321 
+// //prev is just current with an updated next. The updated next points to the last iteration's prev
+//       prev = current;//1=>null, 2=>1=>null, 3=>2=>1=>null, 4=>3=>2=>1=>null, 5=>4=>3=>2=>1=>null   
+//       current = next;// 2345 345 45 5 null
+//     }
+//     console.log(prev, "prev")
+//     return prev;
+// };
+//https://binarysearch.com/problems/Replace-Linked-List-on-Index
+//my solution
+// class Solution {
+//     solve(a, b, lo, hi) {
+//         let currentNodeA = a
+//         let index = 0
+//         let prevNode
+//         let loNodesPrev
+//         let hiNode 
+//         //get the node immediately preceding lo so we can attach that node to b
+//         //get the hi node so we can attach b's tail to it next
+//         while(currentNodeA){
+//             if(index == lo){
+//                 loNodesPrev  = prevNode
+//             }
+//             if(index == hi){
+//                 hiNode  = currentNodeA
+//             }
+//             index++
+//             prevNode = currentNodeA
+//             currentNodeA = currentNodeA.next
+//         }
+//          let currentNodeB = b
+//          let tailB 
+//          //get b's tail
+//          while(currentNodeB){
+//          tailB = currentNodeB
+//            currentNodeB = currentNodeB.next
+//          }
+//          //if there are any nodes following our hi cutoff, append them to b
+//        if(hiNode.next){
+//            tailB.next =  hiNode.next
+//            }
+        
+//         //handle edge case where lo is 0
+//         if(loNodesPrev){
+//             loNodesPrev.next = b
+//              return a 
+//         }else{
+//             //remember b now includes any nodes we've attached from a
+//             return b
+//         }
+       
+//     }
+// }
+//Chris faster than 100% solution
+// class Solution {
+//     solve(a, b, lo, hi) {
+//         let bridgeNode = null,
+//             landingNode = null,
+//             currentANode = a,
+//             prevNode = null
+//         let count = 0
+//   ​
+//         //traverse LL a counting the indices until we've reached the index before the lo node
+//         //save this as bridge node
+//         //continue iterating until we reach the index of the hi node
+//         //save the hi node's .next as landing node
+//         while (count <= hi) {
+//             if (count === lo) {
+//                 //edge case where you replace first node
+//                 if (count === 0) bridgeNode = b
+//                 else bridgeNode = prevNode
+//             }
+//             if (count === hi) {
+//                 //edge case, replace to end of LL
+//                 if (currentANode.next === null) landingNode = null
+//                 else landingNode = currentANode.next
+//             }
+//             prevNode = currentANode
+//             currentANode = currentANode.next
+//             count += 1
+//         }
+//   ​
+//         if (lo === 0) {
+//             let currentBNode = b
+//             while (currentBNode.next) {
+//                 currentBNode = currentBNode.next
+//             }
+//             currentBNode.next = landingNode
+//   ​
+//             return b
+//         } else {
+//             //set bridge node .next to be b
+//             bridgeNode.next = b
+//   ​
+//             //iterate thru b until .next = null and set .next to be landing node
+//             let currentBNode = b
+//             while (currentBNode.next) {
+//                 currentBNode = currentBNode.next
+//             }
+//             currentBNode.next = landingNode
+//   ​
+//             //return a
+//             return a
+//         }
+//     }
+//   }
 
