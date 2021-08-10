@@ -680,6 +680,19 @@
 //     node.val = node.next.val;
 //     node.next = node.next.next
 // };
+// //explanation of deleteNode
+// var deleteNode = function (node) {
+//   //we are overiting the node we have been given with the next node's value
+//   node.val = node.next.val;
+//   //since we have saved the next node's value in the given node (aka the node we want to remove)
+//   //the node we are actually deleting is the node to the right of the given node
+//   //we have to do it this way because we did not have access to the node to the left of the given node
+//   //aka the one we are supposed to delete
+//   node.next = node.next.next;
+//   //^^we need to update our next pointer to point to the node that follows the node we used to replace the
+//   //"deleted" node(remember it wasn't really deleted it was overwritten, but it still points to the node
+//   //to its immediate right and we need its pointer to jump one node over)
+// };
 // https://www.hackerrank.com/challenges/compare-two-linked-lists/problem
 // function CompareLists(llist1, llist2) {
 //     while(llist1 && llist2){
