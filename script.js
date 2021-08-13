@@ -837,4 +837,172 @@
 //         }
 //     }
 //   }
+//BST PSEUDOCODE
+// //create a node class has a constructor that accepts a value.
+// //The constructor should set this.value equal to the value parameter
+// //and initialize this.left and this.right with null
+// class Node {
+//   constructor(value) {
+//     this.value = value;
+//     this.left = null;
+//     this.right = null;
+//   }
+// }
+// //create a Binary Search Tree class with a constructor that initializes the root with null
+// class BST {
+//   constructor() {
+//     this.root = null;
+//   }
 
+//   //create an INSERT method that accepts a value and creates a new node with that value
+//   insert(value) {
+//     //account for the edge case where BST is empty
+//     //we can check for this by checking whether the root is null
+//     //if the root has no value set the root equal to the new node you have created
+//     if (this.root === null) {
+//       this.root = new Node(value);
+//     }
+//     //otherwise, create a current variable to contain the root
+//     let current = this.root;
+//     //iterate while true, comparing your current node's value to the value parameter
+//     while (true) {
+//       //there are three scenarios to account for
+//       //1 when the current node's value is equal to the passed in value
+//       //in this case we can return undefined
+//       //carefully read the constraints of your algo or ask your interviewer about them
+//       //carefully read the constraints of your algo or ask your interviewer about them
+//       //in the leetcode algo from nyc coder meeting
+//       //the constrainsts specify that this scenario will not come up:
+//       //from the leetcode algo: It is guaranteed that the new value does not exist in the original BST.
+//       if (value === current.value) return null;
+//       //2 when the current node's value is less than the the passed in value
+//       //when this is the case we must check to see whether current has a right node
+//       //if current.right is null, we have found a home for our node
+//       //we can set current.right equal to our node and return the entire BST
+//       //if current.right is not null then we simply update our current variable
+//       //to equal current.right continuing our traversal of the BST
+//       if (value > current.value) {
+//         if (current.right === null) {
+//           current.right = new Node(value);
+//           return this;
+//         }
+//         current = current.right;
+//       }
+//       //3 when the current node's value is greater than the the passed in value
+//       //when this is the case we must check to see whether current has a left node
+//       //if current.left is null, we have found a home for our node
+//       //we can set current.left equal to our node and return the entire BST
+//       //if current.left is not null then we simply update our current variable
+//       //to equal current.left continuing our traversal of the BST
+//       if (value < current.value) {
+//         if (current.left === null) {
+//           current.left = new Node(value);
+//           return this;
+//         }
+//         current = current.left;
+//       }
+//     } // while loop
+//   }
+
+//   //create a FIND method that accepts a value
+//   find(value) {
+//     //    10
+//     //   5     13
+//     // 2  7  11  16
+//     //account for the edge case where the BST is empty
+//     //we can check for this the same way we did with the insert method
+//     //If the BST is empty we may return false, because our value certainly isn't in there
+//     if (this.root === null) {
+//       return false;
+//     }
+//     //If the BST is not empty we must create 2 variables before we begin to traverse the BST
+//     //create a current variable that will serve as a pointer
+//     //initialize it with this.root
+//     //create a found variable and set it to false
+//     else {
+//       let current = this.root;
+//       let found = false;
+//       //Loop through your BST as long as there are nodes to traverse
+//       //and we haven't found the node we are looking for
+//       //hint: consider the variables we've created and the bang operator
+//       while (current && !found) {
+//         //in our loop there are 3 possible scenarios
+//         //1) our current node's value is less than our value parameter
+//         //in which case we can ignore everything to the right and
+//         //update the value of current like we did in the insert method
+//         //this is an example of which algo solving pattern at work?
+//         if (current.value < value) {
+//           current = current.right;
+//         }
+//         //2) our current node's value is greater than our value parameter
+//         //in which case we can ignore everything to the left and
+//         //update the value of current like we did in the insert method
+//         else if (current.value > value) {
+//           current = current.left;
+//         }
+//         //3)our current node's value is equal to our value parameter
+//         //we've found the node we were looking for!
+//         //we can reset our found variable to equal true
+//         else {
+//           found = true;
+//         }
+//       }
+//       //outside of the loop
+//       //if not found return undefined
+//       //otherwise return current
+//       return found ? current : undefined;
+//     }
+//   }
+
+//   //create a CONTAINS method that works exactly the same as find except
+//   // it returns true if the node is found
+//   //and false if the node isn't found
+//   contains(value) {
+//     return this.find(value) ? true : false;
+//   }
+// }
+
+// var tree = new BST();
+// tree.insert(10);
+// tree.insert(5);
+// tree.insert(13);
+// tree.insert(11);
+// tree.insert(2);
+// tree.insert(16);
+// tree.insert(7);
+// console.log(tree);
+//https://leetcode.com/problems/search-in-a-binary-search-tree/
+//Iterative Solution
+//iterative version has a space complexity of O(1)
+//iterative solution has a LOGARITHMIC O(log n) time complexity on average
+//but the worst case scenario is LINEAR On
+//remember how we said linked lists are technically trees?
+//that would be the worst case scenario
+// var searchBST = function(root, val) {
+//     if(root.val === null) return null
+//     let current = root
+//     while(current !== null){
+//         if(val < current.val){
+//             current = current.left
+//         }else if(val > current.val){
+//              current = current.right
+//         }else if(val == current.val){
+//             return current
+//         }
+//     }
+//     return null
+// };
+
+//Recursive Solution
+// recursive version has a space complexity of O(log N)
+// var searchBST = function (root, val) {
+//   if (!root) return null;
+//   if (root.val === val) return root;
+//   if (root.val > val) {
+//     return searchBST(root.left, val);
+//   } else {
+//     return searchBST(root.right, val);
+//   }
+// };
+
+//Hence, even though recursive version may be easy to implement, the iterative version is efficient.
